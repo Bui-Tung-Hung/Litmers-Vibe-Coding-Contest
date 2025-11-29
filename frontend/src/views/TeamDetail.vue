@@ -20,7 +20,7 @@
               </NButton>
             </div>
             <NCard style="margin-bottom: 24px;">
-              <div v-if="projects.length > 0" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+              <div v-if="projects.length > 0" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 24px;">
                 <NCard
                   v-for="project in projects"
                   :key="project.id"

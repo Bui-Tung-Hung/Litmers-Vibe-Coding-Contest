@@ -3,9 +3,9 @@
     <NH1>Dashboard</NH1>
     
     <NSpin :show="loading">
-      <div v-if="dashboardData" style="display: grid; gap: 24px;">
+      <div v-if="dashboardData" style="display: grid; gap: 32px;">
         <!-- Stats Cards -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
           <NCard title="My Issues">
             <NStatistic :value="dashboardData.total_assigned_issues || 0" />
           </NCard>
@@ -19,7 +19,7 @@
 
         <!-- My Teams -->
         <NCard title="My Teams">
-          <div v-if="dashboardData.teams?.length > 0" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;">
+          <div v-if="dashboardData.teams?.length > 0" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 24px;">
             <NCard
               v-for="team in dashboardData.teams"
               :key="team.id"

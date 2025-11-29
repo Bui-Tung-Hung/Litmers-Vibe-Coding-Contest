@@ -1,0 +1,55 @@
+/* Responsive utilities for better mobile experience */
+
+/* Mobile First - Base styles */
+@media screen and (max-width: 768px) {
+  /* Force single column on mobile */
+  [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Reduce padding on mobile */
+  .n-layout-content {
+    padding: 16px !important;
+  }
+  
+  /* Cards full width */
+  .n-card {
+    margin-bottom: 16px;
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 769px) and (max-width: 1200px) {
+  /* 2 columns for grids with minmax(350px+) */
+  [style*="minmax(350px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  
+  [style*="minmax(380px"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Desktop Large */
+@media screen and (min-width: 1201px) {
+  /* 3 columns max for better readability */
+  [style*="minmax(350px"] {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+  }
+  
+  [style*="minmax(380px"] {
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)) !important;
+  }
+}
+
+/* Smooth transitions for responsive changes */
+.n-card,
+.n-grid {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Better card hover effect */
+.n-card[hoverable]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}

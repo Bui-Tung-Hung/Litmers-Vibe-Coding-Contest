@@ -8,7 +8,7 @@
     </div>
 
     <NSpin :show="loading">
-      <div v-if="teamStore.teams.length > 0" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;">
+      <div v-if="teamStore.teams.length > 0" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 24px;">
         <NCard
           v-for="team in teamStore.teams"
           :key="team.id"

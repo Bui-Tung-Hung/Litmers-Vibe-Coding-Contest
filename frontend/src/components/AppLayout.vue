@@ -19,8 +19,10 @@
         <AppHeader @toggle-mobile-menu="showMobileMenu = !showMobileMenu" />
       </NLayoutHeader>
 
-      <NLayoutContent style="padding: 24px;">
-        <router-view />
+      <NLayoutContent style="padding: 32px; background: #f5f5f5;">
+        <div style="max-width: 1600px; margin: 0 auto; width: 100%;">
+          <router-view />
+        </div>
       </NLayoutContent>
     </NLayout>
 

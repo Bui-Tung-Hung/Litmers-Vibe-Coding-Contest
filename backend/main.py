@@ -10,12 +10,7 @@ app = FastAPI(title="Litmer API", version="1.0.0")
 # CORS - Allow Vercel and localhost
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://litmers-vibe-coding-contest.vercel.app",
-        "http://localhost:5173",
-        "http://localhost:8000",
-        settings.frontend_url,  # Read from Railway env
-    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",  # Allow all Vercel deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -7,10 +7,15 @@ settings = get_settings()
 
 app = FastAPI(title="Litmer API", version="1.0.0")
 
-# CORS
+# CORS - Allow Vercel and localhost
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_url, "http://localhost:5173"],
+    allow_origins=[
+        "https://litmers-vibe-coding-contest.vercel.app",
+        "http://localhost:5173",
+        "http://localhost:8000",
+        settings.frontend_url,  # Read from Railway env
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -33,15 +38,29 @@ def health_check():
     return {"status": "healthy"}
 
 
-# Import routers
-from backend.api import auth, users, teams, projects, issues, comments, ai, notifications, dashboard
-
-app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
-app.include_router(users.router, prefix="/api/users", tags=["users"])
-app.include_router(teams.router, prefix="/api/teams", tags=["teams"])
-app.include_router(projects.router, prefix="/api", tags=["projects"])
-app.include_router(issues.router, prefix="/api", tags=["issues"])
-app.include_router(comments.router, prefix="/api", tags=["comments"])
-app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
-app.include_router(notifications.router, prefix="/api/notifications", tags=["notifications"])
-app.include_router(dashboard.router, prefix="/api/dashboard", tags=["dashboard"])
+# Import routers after app initialization to avoid circular imports
+try:
+    from backend.api import (
+        auth,
+        users,
+        teams,
+        projects,
+        issues,
+        comments,
+        ai,
+        notifications,
+        dashboard
+    )
+    
+    app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+    app.include_router(users.router, prefix="/api/users", tags=["users"])
+    app.include_router(teams.router, prefix="/api/teams", tags=["teams"])
+    app.include_router(projects.router, prefix="/api", tags=["projects"])
+    app.include_router(issues.router, prefix="/api", tags=["issues"])
+    app.include_router(comments.router, prefix="/api", tags=["comments"])
+    app.include_router(ai.router, prefix="/api/ai", tags=["ai"])
+    app.include_router(notifications.router, prefix="/api/notifications", tags=["notifications"])
+    app.include_router(dashboard.router, prefix="/api/dashboard", tags=["dashboard"])
+except ImportError as e:
+    print(f"Warning: Failed to import routers: {e}")
+    print("Application will run with basic endpoints only")

@@ -33,6 +33,19 @@ def health_check():
     return {"status": "healthy"}
 
 
+@app.get("/debug/env")
+def debug_env():
+    """Debug endpoint to check environment variables (REMOVE IN PRODUCTION!)"""
+    import os
+    return {
+        "google_client_id_raw": os.getenv("GOOGLE_CLIENT_ID", "NOT_SET"),
+        "google_client_id_length": len(os.getenv("GOOGLE_CLIENT_ID", "")),
+        "google_redirect_uri": os.getenv("GOOGLE_REDIRECT_URI", "NOT_SET"),
+        "frontend_url": os.getenv("FRONTEND_URL", "NOT_SET"),
+        "all_env_keys": [k for k in os.environ.keys() if k.startswith("GOOGLE") or k == "FRONTEND_URL"]
+    }
+
+
 # Import routers after app initialization to avoid circular imports
 try:
     from backend.api import (
